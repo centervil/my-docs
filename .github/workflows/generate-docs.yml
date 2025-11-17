@@ -1,0 +1,35 @@
+name: Generate Documentation
+
+on:
+  workflow_dispatch: # Allow manual triggering
+  schedule:
+    - cron: '0 0 * * *' # Example: Run daily
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout my-docs repository
+        uses: actions/checkout@v4
+        with:
+          path: my-docs
+
+      - name: Checkout my-apps repository
+        uses: actions/checkout@v4
+        with:
+          repository: centervil/my-apps
+          path: my-apps
+          # If my-apps is private, a PAT would be needed here
+          # token: ${{ secrets.MY_APPS_PAT }}
+
+      - name: Run documentation generator
+        run: |
+          # Assuming the script is executable
+          python ./my-apps/tools/doc-generator/note_post.py
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "docs: Auto-generate documentation"
+          # Specify the repository path if not in the root
+          repository: ./my-docs
