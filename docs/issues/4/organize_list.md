@@ -1,36 +1,38 @@
-# Organize List: 移行・統合対象ディレクトリの整理
+# Organize List (Refined): 移行・統合対象ディレクトリの整理
 
-## 1. 移行元ディレクトリのステータス
+## 1. 移行元ディレクトリのステータス (ユーザーフィードバック反映後)
 
-| 元ディレクトリ (Docs) | my-docs での配置 | 備考 |
+### 1.1 `Docs` リポジトリ (アーカイブ化)
+| 元ディレクトリ | my-docs での配置 | 備考 |
 | :--- | :--- | :--- |
-| `dev-records/` | `dev-records/` | 日記等の開発記録。全移行。 |
-| `dev-records_old/` | `archive/dev-records_old/` | 過去の記録。アーカイブとして移行。 |
-| `prompts/` | `prompts/` | Zenn記事生成プロンプト。統合。 |
-| `templates/` | `templates/` | Zenn記事テンプレート。統合。 |
-| `tools/` | `tools/` | 各種スクリプト。統合（重複は整理）。 |
-| `books/` | `knowledge/books/` | 書籍メモ。整理して移行。 |
+| `dev-records/` | `archive/docs-dev-records/` | 過去の日記ファイル。全移行しアーカイブ。 |
+| `dev-records_old/` | `archive/docs-dev-records/` | 同上。フォルダを統合してアーカイブ。 |
+| `prompts/` | 移行対象外 | 使用していないため除外。 |
+| `templates/` | 移行対象外 | 使用していないため除外。 |
+| `tools/` | 移行対象外 | 使用していないため除外。 |
+| `books/` | 移行対象外 | 中身がないため除外。 |
 
-| 元ディレクトリ (Docs-Study) | my-docs での配置 | 備考 |
+### 1.2 `Docs-Study` リポジトリ (継続利用・最優先)
+| 元ディレクトリ | my-docs での配置 | 備考 |
 | :--- | :--- | :--- |
-| `security-news/` | `security-news/` | 既存の `my-docs/security-news/` と統合。 |
+| `security-news/` | `security-news/` | 既存の `my-docs/security-news/` とマージ。 |
 | `security-study/` | `security-study/` | 学習進捗管理。全移行。 |
-| `dev-docs/` | `research/` | 調査資料。既存の `my-docs/research/` と統合。 |
-| `specification-draft/` | `knowledge/specs/` | 仕様書ドラフト。整理して移行。 |
-| `prompts/` | `prompts/` | 学習コンテンツ生成プロンプト。統合。 |
-| `templates/` | `templates/` | 学習コンテンツテンプレート。統合。 |
-| `Docs-common/tools/` | `tools/` | 重複する `document_processor.py` 等の整理。 |
+| `dev-docs/` | `research/` | 調査資料。既存の `my-docs/research/` とマージ。 |
+| `specification-draft/` | `knowledge/specs/` | 仕様書ドラフト。全移行。 |
+| `prompts/` | `prompts/` | **Pipeline 継続利用のため必須。** |
+| `templates/` | `templates/` | **Pipeline 継続利用のため必須。** |
+| `Docs-common/tools/` | `tools/` | **Pipeline 継続利用のため必須。** |
 
-## 2. 統合・整理方針のポイント
+## 2. 統合・整理の基本方針 (Safe-First)
 
-1. **重複排除**: `document_processor.py` は、学習用と日記用で差異があるため、`tools/document_processor_study.py` と `tools/document_processor_diary.py` のようにリネームして配置、または共通化を検討する。
-2. **アーカイブ**: `dev-records_old/` 等の古いデータは、ルートディレクトリを汚さないよう `archive/` 以下にまとめる。
-3. **新規カテゴリ**: `knowledge/` ディレクトリを新設し、静的な資料（書籍、仕様、調査資料の恒久版）を整理して配置する。
-4. **既存 my-docs コンテンツ**: `research/` や `security-news/` は、既存のファイルを壊さないようマージする。
+1. **Docs-Study 優先**: 現在稼働中の `Docs-Study` の環境をそのまま `my-docs` 上で再現することを最優先する。
+2. **Docs の最小移行**: `Docs` からは日記ファイルのみを `archive/` 以下に「読み物」として退避させる。
+3. **Pipeline 互換性の維持**: Issue #3 で `private-ops` に移管した Pipeline が正常に動作するよう、`prompts/`, `templates/`, `tools/` は `Docs-Study` のものを正しく配置する。
+4. **既存コンテンツの保護**: `my-docs` に既に存在する `research/` や `security-news/` のファイルが、上書きや削除で失われないよう慎重にマージする。
 
 ## 3. 次のステップ (Issue #5 移行フェーズ)
 
-- [ ] `my-docs` に新規ディレクトリ (`knowledge/`, `archive/`, `tools/` 等) を作成。
-- [ ] 各ディレクトリへのファイルコピー。
-- [ ] 相対パス参照が含まれるドキュメント（あれば）の修正。
-- [ ] 最終的なディレクトリ構成の整合性チェック。
+- [ ] `archive/docs-dev-records/` ディレクトリの作成とコピー。
+- [ ] `Docs-Study` から各ディレクトリを最優先でコピー。
+- [ ] `my-docs` ルートの `research/`, `security-news/` へのマージ作業。
+- [ ] `private-ops` の Pipeline から参照されるファイルの整合性確認。
