@@ -1,0 +1,59 @@
+# 人生管理システム構成案：Personal Digital Fortress (PDF)
+
+## 1. ビジョン
+エンジニアリングのベストプラクティス（IaC, CI/CD, AIエージェント）を個人の生活管理に適用し、「情報の可視化」「意思決定の迅速化」「鉄壁のプライバシー」をスマホ一台で実現する。
+
+## 2. システムアーキテクチャ
+
+### 2.1 ネットワークインフラ
+- **VPN (Tailscale):** スマホ、MiniPC、OCIを同一の仮想LAN内に配置。インターネットにポートを解放せず、外部からのアクセスを遮断する。
+- **Host 1 (MiniPC):** コア・コンピューティング・リソース（Core i7 / 32GB RAM）。機密データの復号と重いAI推論を担当。
+- **Host 2 (OCI):** 公開窓口および自動化実行環境。GitHubからのWebhookを受け取るSelf-hosted Runnerを稼働。
+
+
+
+### 2.2 リポジトリ戦略（モノレポ構成）
+管理の煩雑さを避けるため、性質の異なる2つのモノレポに集約する。
+
+| リポジトリ名 | 性質 | 内容 | セキュリティ |
+| :--- | :--- | :--- | :--- |
+| **Life-Monorepo** | Data / Asset | 資産情報、日記、思考、ライフイベント、GitHub Issues | `sops` + `age` による暗号化 |
+| **Dev-Monorepo** | Logic / IaC | AIツールのFunctions、分析スクリプト、Docker Compose、GitHub Actions | 平文（機密情報を含まない） |
+
+## 3. 入力・操作インターフェース
+「スマホ完結」かつ「AIエージェントによる代行」を基本とする。
+
+### 3.1 Open WebUI (日常の窓口)
+- **役割:** チャットベースのデータ入力、クイックな資産照会、日常の壁打ち。
+- **実装:** MiniPC上のコンテナで稼働。スマホのブラウザからアクセス。
+- **AIエージェント:** Ollama（ローカル）またはGemini APIを活用。
+- **機能:** 自作の「Tools/Functions」を介してLifeリポジトリを読み書きする。
+
+### 3.2 Roo Code / VS Code CLI (構築の窓口)
+- **役割:** 複雑なタスクのバッチ処理、GitHub Issuesの整理、システムの修正・拡張。
+- **実装:** `code serve-web` をMiniPCで稼働させ、PWAとしてスマホで使用。
+- **AIエージェント:** Roo Code。ターミナル操作やファイル編集権限を持ち、エンジニアとして振る舞う。
+
+
+
+## 4. セキュリティ・データフロー
+GitHubを信頼しすぎない「ゼロトラスト」なデータ管理。
+
+1.  **入力:** スマホからOpen WebUIへ発話。
+2.  **処理:** MiniPC内でAIがデータを構造化（JSON/YAML）。
+3.  **暗号化:** `sops` が `age` の秘密鍵（MiniPC内にのみ存在）を使用してファイルを暗号化。
+4.  **保管:** 暗号化された状態のまま `git push` され、GitHub（Private）に永続化。
+5.  **分析:** 高度な分析時のみ、MiniPC内で復号し、統計メトリクス（機微情報を除いた数値）のみを上位LLMに渡す。
+
+## 5. 主要な管理ドメイン
+- **Finance:** 銀行・証券口座、投資商品、ライフイベントコスト、収支ログ。
+- **Operations:** GitHub Issues/Projects を活用したタスク管理、習慣トラッカー。
+- **Identity:** 人生の憲法（README）、価値観、中長期ロードマップ。
+- **Brain:** 日々の気づき、学習ログ、未整理のアイデア。
+
+## 6. 今後の実装ステップ
+1.  **Infrastructure:** MiniPCにDocker環境を構築し、Tailscaleを設定。
+2.  **Secret Management:** `age` 鍵の生成と、`sops` によるLifeリポジトリの初期化。
+3.  **Chat Interface:** Open WebUIとOllamaの起動。
+4.  **Agent Tooling:** 「発話をYAMLに変換してGit Pushする」最初のPythonツールの実装。
+5.  **Engineering:** VS Code CLI を立ち上げ、Roo Codeによる開発サイクルを確立。
