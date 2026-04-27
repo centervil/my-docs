@@ -16,8 +16,8 @@
 - [x] Update References: Update internal paths to `research/` and `specs/`. <!-- id: 13 -->
 
 ## Phase: Review
-- [/] Verify: Confirm deletions and reorganization under `docs/`. <!-- id: 8 -->
-- [ ] Self-Review: Ensure repository state aligns with "pure content repo" goal. <!-- id: 9 -->
+- [x] Verify: Confirm deletions and reorganization under `docs/`. <!-- id: 8 -->
+- [x] Self-Review: Ensure repository state aligns with "pure content repo" goal. <!-- id: 9 -->
 
 ## Phase: End
-- [ ] PR: Update Pull Request for Issue 15. <!-- id: 10 -->
+- [/] PR: Update Pull Request for Issue 15. <!-- id: 10 -->
