@@ -6,12 +6,12 @@
 日々の情報収集に複数のLLMサービス（ChatGPT, Perplexity, Grok, Claudeなど）を利用しているが、調査結果が各プラットフォームに分散し、後で参照しにくい。また、対話形式の調査では、会話スレッドを追わないと流れが分かりにくい場合がある。
 
 ### 1.2 目的
-`Docs/research/` ディレクトリに保存されたMarkdown形式のLLM調査結果を、LLMを利用して分かりやすいnote記事形式に自動変換し、note.comに自動公開する仕組みを構築する。これにより、情報の一元管理と参照性の向上、および知識共有の効率化を目指す。
+`docs/research/` ディレクトリに保存されたMarkdown形式のLLM調査結果を、LLMを利用して分かりやすいnote記事形式に自動変換し、note.comに自動公開する仕組みを構築する。これにより、情報の一元管理と参照性の向上、および知識共有の効率化を目指す。
 
 ## 2. 要件定義
 
 ### 2.1 機能要件
-- **入力**: `Docs/research/` ディレクトリ内のMarkdown形式のLLM調査結果ファイル。
+- **入力**: `docs/research/` ディレクトリ内のMarkdown形式のLLM調査結果ファイル。
 - **トリガー**: 上記ディレクトリへのGitコミットをフックして処理を開始する。
 - **変換処理**:
     - 指定されたMarkdownファイルを読み込む。
@@ -32,7 +32,7 @@
 ### 3.1 処理フロー概要
 1.  **トリガー**: 開発者が `Docs` リポジトリにコミットし、プッシュする。
 2.  **CI/CDパイプライン起動**: GitHub ActionsなどのCI/CDサービスがプッシュイベントを検知し、ワークフローを開始する。
-3.  **変更ファイル特定**: ワークフロー内で、コミットによって追加・変更されたファイルのうち、`Docs/research/` ディレクトリ配下のMarkdownファイル（`.md`）を特定する。
+3.  **変更ファイル特定**: ワークフロー内で、コミットによって追加・変更されたファイルのうち、`docs/research/` ディレクトリ配下のMarkdownファイル（`.md`）を特定する。
 4.  **記事変換処理**: 特定された各Markdownファイルに対して、以下の処理を実行する。
     a.  **ファイル読み込み**: Markdownファイルの内容を読み込む。
     b.  **フォーマット指示読み込み**: 事前に定義されたnote記事用フォーマット指示Markdownファイル (`Docs/templates/note_format_prompt.md` とする) の内容を読み込む。
@@ -43,10 +43,10 @@
 
 ### 3.2 コンポーネント詳細
 #### 3.2.1 CI/CDワークフロー (GitHub Actions例)
--   **トリガー**: `on: push: branches: [ main ] paths: [ 'Docs/research/**.md' ]`
+-   **トリガー**: `on: push: branches: [ main ] paths: [ 'docs/research/**.md' ]`
 -   **ジョブ**:
     -   リポジトリをチェックアウトする。
-    -   変更された `Docs/research/*.md` ファイルを特定するスクリプトを実行する。
+    -   変更された `docs/research/*.md` ファイルを特定するスクリプトを実行する。
     -   特定されたファイルごとに、変換・投稿処理を実行するPythonスクリプト（または他の言語のスクリプト）を呼び出す。
     -   必要なAPIキー（OpenRouter, note.com）はGitHub Secretsから環境変数としてスクリプトに渡す。
 
@@ -151,7 +151,7 @@ graph LR
     A[開発者] -- 1. Commit & Push --> B(GitHub Repository);
     B -- 2. Trigger --> C{GitHub Actions};
     C -- 3. Checkout & Identify Files --> D(CI/CD Runner);
-    D -- 4a. Read Research File --> E[/Docs/research/*.md/];
+    D -- 4a. Read Research File --> E[/docs/research/*.md/];
     D -- 4b. Read Format Prompt --> F[/Docs/templates/note_format_prompt.md/];
     subgraph "変換・投稿スクリプト (Python)"
         direction LR
@@ -170,7 +170,7 @@ graph LR
 
 **コンポーネント:**
 
--   **GitHub Repository**: ソースコードとドキュメント（`Docs/research/` を含む）を管理。
+-   **GitHub Repository**: ソースコードとドキュメント（`docs/research/` を含む）を管理。
 -   **GitHub Actions**: CI/CDパイプライン。プッシュをトリガーにワークフローを実行。
 -   **CI/CD Runner**: ワークフローのジョブを実行する環境。
 -   **変換・投稿スクリプト**: Pythonで実装。ファイルの読み込み、OpenRouter API呼び出し、note.com API呼び出しを行う。
