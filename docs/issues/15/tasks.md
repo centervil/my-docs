@@ -11,10 +11,13 @@
 - [x] Delete: Remove `archive/`. <!-- id: 5 -->
 - [x] Delete: Remove `tools/`. <!-- id: 6 -->
 - [x] Delete: Remove `study-materials/test/`. <!-- id: 7 -->
+- [x] Reorganize: Move `research/` to `docs/research/`. <!-- id: 11 -->
+- [x] Reorganize: Move `knowledge/specs/` to `docs/specs/`. <!-- id: 12 -->
+- [x] Update References: Update internal paths to `research/` and `specs/`. <!-- id: 13 -->
 
 ## Phase: Review
-- [x] Verify: Confirm deletions and preservation of `prompts/` and `templates/`. <!-- id: 8 -->
-- [x] Self-Review: Ensure repository state aligns with "pure content repo" goal. <!-- id: 9 -->
+- [/] Verify: Confirm deletions and reorganization under `docs/`. <!-- id: 8 -->
+- [ ] Self-Review: Ensure repository state aligns with "pure content repo" goal. <!-- id: 9 -->
 
 ## Phase: End
-- [x] PR: Create Pull Request for Issue 15. <!-- id: 10 -->
+- [ ] PR: Update Pull Request for Issue 15. <!-- id: 10 -->
