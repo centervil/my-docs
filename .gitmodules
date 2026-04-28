@@ -1,3 +1,6 @@
 [submodule ".gemini"]
 	path = .gemini
 	url = https://github.com/centervil/my-gemini.git
+[submodule "private-ops"]
+	path = private-ops
+	url = https://github.com/centervil/private-ops.git
