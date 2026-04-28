@@ -1,14 +1,19 @@
-# my-docs Repository
+# my-docs
 
-This repository stores all documentation for the project.
+ドキュメント管理用リポジトリ。
 
-## Directory Structure
-- `docs/specs/`: System specifications and project definitions.
-- `docs/research/`: Research materials, logs, and investigation results.
-- `docs/issues/`: Development logs and issue-specific design/task documents.
-- `security-news/`: Daily cybersecurity news summaries.
-- `security-study/`: Study materials and course-related notes.
-- `prompts/`: AI system prompts and templates.
-- `templates/`: Document templates.
+## リポジトリ構成
+本リポジトリは「データ（ドキュメント）」と「ロジック（スクリプト）」を分離して管理しています。
 
-The content in this repository is automatically generated and updated by a GitHub Actions workflow. The workflow uses scripts from the `centervil/private-ops` repository (formerly `my-apps`) to generate the documentation from various sources.
+- **my-docs (this repo)**: コンテンツおよびドキュメント本体。
+- **private-ops (submodule)**: 文書生成・管理用の自動化パイプライン。
+
+## ディレクトリ構造
+- `docs/specs/`: システム仕様書・定義書。
+- `docs/research/`: 調査資料・ログ。
+- `docs/issues/`: 開発ログ・Issueごとの設計・タスク管理。
+- `security-news/`: サイバーセキュリティニュース。
+- `security-study/`: 学習資料・ノート。
+- `prompts/`: AIシステム用プロンプト・テンプレート。
+- `templates/`: 各種ドキュメントテンプレート。
+- `private-ops/`: 自動化スクリプト群（Submodule）。
