@@ -1,41 +1,42 @@
-# Design: [Feature] Automate Daily Security News Collection using NotebookLM CLI
+# Design: [Feature] Automate Daily Security News Collection using NotebookLM CLI (Revised)
 
 ## 1. Overview
-Automate the manual process of collecting security news (Deep Research) and summarizing them (Chat) using NotebookLM via a CLI tool.
+Automate the manual process of collecting security news (Deep Research) and summarizing them (Chat) using NotebookLM. This revision focuses on robust implementation using the `notebooklm-py` library with a verified async flow and secure authentication.
 
 ## 2. Technical Approach
 
-### 2.1 CLI Tool Research
-- **Selected Tool:** `notebooklm-py` (https://github.com/teng-lin/notebooklm-py)
-- **Rationale:** 
-    - Reverse-engineered API (httpx/Protobuf) is faster and more stable for pipelines than browser automation.
-    - Supports programmatic creation of notebooks, adding sources (URLs), and querying via `ask()`.
-    - Handle authentication via stored session cookies (`storage_state.json`).
-- **Alternative:** `notebooklm-mcp-cli` (useful for interactive CLI usage, but `notebooklm-py` is better for Python scripting).
+### 2.1 Library & Authentication
+- **Library:** `notebooklm-py` (v0.1.0+ recommended)
+- **Auth:** Using `NOTEBOOKLM_AUTH_JSON` environment variable.
+- **Setup Flow:**
+    1. User runs `notebooklm login` locally to generate `storage_state.json`.
+    2. User copies JSON content to GitHub Secret `NOTEBOOKLM_AUTH_JSON`.
+    3. Workflow injects secret as environment variable.
 
-### 2.2 Automation Script (`private-ops/tools/notebooklm_automation.py`)
-- **Library:** `notebooklm-py`
-- **Workflow:**
-    1. **Initialization:** Load authentication state from `storage_state.json`.
-    2. **Notebook Setup:** Create or find a "Daily Security News" notebook.
-    3. **Source Injection:** Add the "Deep Research" trigger. (Note: In NotebookLM, this is often done by adding a web source or querying with a search-enabled prompt).
-    4. **Summarization:** Use `notebook.ask()` with the prompt from `prompts/study_day_content_prompt_template.md`.
-    5. **Export:** Save the response to `security-news/cybersecurity_news_YYYY-MM-DD.md` in the `my-docs` repo.
+### 2.2 Automation Workflow (Async Python)
+1. **Initialize Client:** Use `NotebookLMClient.from_storage()` which automatically checks `NOTEBOOKLM_AUTH_JSON`.
+2. **Deep Research:**
+    - Call `client.research.start(query, mode="deep")`.
+    - Poll for status `6` (Completed).
+    - Extract report markdown from the result.
+3. **Notebook Management:**
+    - Find/Create notebook "Daily Security News".
+    - Import the Deep Research report as a source.
+4. **Summarization:**
+    - Call `client.chat.ask(notebook_id, prompt)` using the template from `prompts/study_day_content_prompt_template.md`.
+5. **Output:**
+    - Save to `security-news/cybersecurity_news_YYYY-MM-DD.md`.
 
-### 2.3 Pipeline (`private-ops/.github/workflows/daily_news.yml`)
-- Scheduled GitHub Action (cron).
-- Steps:
-    1. Checkout `my-docs` and `private-ops`.
-    2. Setup environment (Python/CLI).
-    3. Run automation script.
-    4. Commit and push generated news to `my-docs`.
+### 2.3 Verification & Testing Strategy
+- **Environment Check:** `verify_setup.py` to ensure `notebooklm-py` is installed and the auth variable is present.
+- **Unit Testing:** `pytest` with `unittest.mock` to simulate `NotebookLMClient` responses (e.g., mocking the research polling and chat responses).
+- **Dry Run Mode:** Implementation of a `--dry-run` flag in the automation script to validate logic without calling the API.
 
-## 3. Risks & Mitigations
-- **NotebookLM API Stability:** If no official API exists, browser automation might be brittle. Mitigation: Use robust selectors and error handling.
-- **Authentication:** Keeping session cookies/tokens valid. Mitigation: Use GitHub Secrets for credentials and implement token refresh if possible.
+## 3. Security Considerations
+- **Credential Rotation:** Cookies expire. The design must handle auth errors gracefully and notify the user to rotate the secret.
+- **Sensitive Data:** `storage_state.json` contains full session access. It must **never** be logged or printed.
 
-## 4. Success Criteria
-- [ ] Research phase identifies a viable CLI method.
-- [ ] Prototype script successfully generates a summary.
-- [ ] `private-ops` contains the finalized script and workflow.
-- [ ] First automated news file appears in `security-news/`.
+## 4. Implementation Details
+- **Script Location:** `private-ops/tools/notebooklm_automation.py`
+- **Dependency File:** `private-ops/tools/requirements.txt`
+- **Workflow:** `private-ops/.github/workflows/daily_news.yml`
