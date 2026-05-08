@@ -15,17 +15,18 @@ Automate the manual process of collecting security news (Deep Research) and summ
 
 ### 2.2 Automation Workflow (Async Python)
 1. **Initialize Client:** Use `NotebookLMClient.from_storage()` which automatically checks `NOTEBOOKLM_AUTH_JSON`.
-2. **Deep Research:**
+2. **Interface:** Accepts `--output` (`-o`) for the file path and `--template` (`-t`) for the prompt.
+3. **Deep Research:**
     - Call `client.research.start(query, mode="deep")`.
     - Poll for status `6` (Completed).
     - Extract report markdown from the result.
-3. **Notebook Management:**
-    - Find/Create notebook "Daily Security News".
-    - Import the Deep Research report as a source.
-4. **Summarization:**
-    - Call `client.chat.ask(notebook_id, prompt)` using the template from `prompts/study_day_content_prompt_template.md`.
-5. **Output:**
-    - Save to `security-news/cybersecurity_news_YYYY-MM-DD.md`.
+4. **Notebook Management:**
+    - Find/Create notebook "Daily Security News Automation".
+    - Import the Deep Research report as a source via `client.sources.add_text`.
+5. **Summarization:**
+    - Call `client.chat.ask(notebook_id, prompt)` using the template content.
+6. **Output:**
+    - Write the final markdown to the path specified by `--output`.
 
 ### 2.3 Verification & Testing Strategy
 - **Environment Check:** `verify_setup.py` to ensure `notebooklm-py` is installed and the auth variable is present.
