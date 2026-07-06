@@ -1,5 +1,5 @@
 [submodule ".gemini"]
-	path = .gemini
+	path = .agents
 	url = https://github.com/centervil/my-gemini.git
 [submodule "private-ops"]
 	path = private-ops
