@@ -1,8 +1,8 @@
 # Podcast Metadata Single Source of Truth (SSOT)
-# Last updated: 2026-11-15T12:00:00+09:00
+# Last updated: 2026-11-15T23:24:59+09:00
 
 version: "1.0"
-updated_at: "2026-11-15T12:00:00+09:00"
+updated_at: "2026-11-15T23:24:59+09:00"
 
 study_podcast:
   program_name: "30日間で学ぶ資格勉強"
@@ -50,7 +50,7 @@ news_podcast:
     spotify_last_episode: "導出 (2026-11-13 分がシーズン1 エピソード556 + 前回+1 規則)"
   rules:
     spotify_episode_derivation: "前回 + 1（通算）"
-    spotify_title_format: "<対象日>サイバーセキュリティニュース" # 対象日は「2026-11-13」形式
+    spotify_title_format: "<対象日>サイバーセキュリティニュース" # 対象日は「2026年11月13日」形式
     spotify_summary_source: "音源タイトル（NotebookLM が付けたタイトル）をそのまま使う"
     note_title_format: "<対象日> サイバーセキュリティニュースまとめ"
     note_tags: ["#ニュース", "#セキュリティ"]

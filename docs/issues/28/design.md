@@ -4,10 +4,9 @@
 日次配信（学習編・ニュース編）の現在状態（Day 番号や対象日、Spotify シーズン/エピソード番号、配信進捗状況など）が各所に散らばっており、毎回の実行で手動逆算やクリップボードからのテンプレート貼り付けを行っていた。これを解消し、日次実行エージェントや人間が単一の情報源（SSOT: Single Source of Truth）を参照・更新できるようにする。
 
 ## 2. SSOT の配置と形式
-- **配置**: リポジトリ直下の `config/` または専用場所、または `docs/` 配下、あるいはリポジトリルートに `podcast-ssot.yaml` として配置する。
-  - *決定*: 日次実行エージェントや人間が最も迷わず見つけられ、参照しやすいリポジトリ直下に `podcast-ssot.yaml` として配置する。また、近傍に読み方・書き戻し方を記した `README.md` を置く（または `podcast-ssot.yaml` 内にセクションを記載、あるいは `config/` 配下にする？指示では「SSOT と同じ場所」に短い README/セクション）。今回はリポジトリルートに `podcast-ssot.yaml` を配置し、同ファイルのコメントまたは専用の `podcast-ssot-readme.md`（または同一ディレクトリ）とするか、あるいは `config/podcast-ssot.yaml` に置くか。指示: 「SSOT と同じ場所にし、README か design.md から参照できるようにすること」「SSOT の読み方・書き戻し方を説明する短い README/セクション（SSOT と同じ場所）」。
-  - *具体配置*: `config/podcast-ssot.yaml` および `config/README.md`（またはルートに `podcast-ssot.yaml` と `PODCAST_SSOT_README.md`）。ルート直下に `podcast-ssot.yaml` と `podcast-ssot-readme.md` を置くのが最もシンプル。ルートに `podcast-ssot.yaml` を置き、その説明を `podcast-ssot-readme.md` に書くか、あるいは `config/podcast-ssot.yaml` と `config/README.md` にする。指示では「SSOT の読み方・書き戻し方を説明する短い README/セクション（SSOT と同じ場所）」とあるので、`config/podcast-ssot.yaml` と `config/README.md` の構成が綺麗。あるいは `podcast-ssot.yaml` の中に詳細なコメント（セクション）を書きつつ `README.md` からリンクする。ここでは `config/podcast-ssot.yaml` と `config/README.md` を採用する。
-- **形式**: 機械可読で人が直接編集しやすい **YAML** 形式を採用する。
+- **配置**: `config/podcast-ssot.yaml` および同じ `config/` 内の `README.md`
+- **形式**: YAML
+- **選定理由**: 日次実行エージェントや人間が参照する設定類として、コンテンツ本体のディレクトリから明確に分離できる。また、機械可読性と人間による読み書きのしやすさを両立できるため。
 
 ## 3. 初期値と Provenance（2026-11-15 時点の検証済み事実）
 - **学習系 (30日間で学ぶ資格勉強)**:
