@@ -16,4 +16,5 @@
 - `security-study/`: 学習資料・ノート。
 - `prompts/`: AIシステム用プロンプト・テンプレート。
 - `templates/`: 各種ドキュメントテンプレート。
+- `config/`: 日次配信メタデータ SSOT (`podcast-ssot.yaml`)。
 - `private-ops/`: 自動化スクリプト群（Submodule）。
