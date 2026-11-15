@@ -1,0 +1,27 @@
+# 設計文書: 日次配信のメタデータ SSOT の作成 (Issue #28)
+
+## 1. 背景と目的
+日次配信（学習編・ニュース編）の現在状態（Day 番号や対象日、Spotify シーズン/エピソード番号、配信進捗状況など）が各所に散らばっており、毎回の実行で手動逆算やクリップボードからのテンプレート貼り付けを行っていた。これを解消し、日次実行エージェントや人間が単一の情報源（SSOT: Single Source of Truth）を参照・更新できるようにする。
+
+## 2. SSOT の配置と形式
+- **配置**: `config/podcast-ssot.yaml` および同じ `config/` 内の `README.md`
+- **形式**: YAML
+- **選定理由**: 日次実行エージェントや人間が参照する設定類として、コンテンツ本体のディレクトリから明確に分離できる。また、機械可読性と人間による読み書きのしやすさを両立できるため。
+
+## 3. 初期値と Provenance（2026-11-15 時点の検証済み事実）
+- **学習系 (30日間で学ぶ資格勉強)**:
+  - theme: `security-study/CRISC/`
+  - material_day: 13 (provenance: 実測 - origin/main に Day13_study.md あり, commit 4b7d622)
+  - note_day: 12 (provenance: 実測)
+  - spotify_day: 12 (provenance: 実測 - Day12 は 2026-11-15 に公開済み)
+  - spotify_season: 19 (provenance: 手順正本 my-life `domains/habits/daily-podcast-runbook.md` §4 の規則)
+- **ニュース系 (AI CyberSecurity News Digest)**:
+  - report_date: `2026-11-14` (provenance: 実測 - origin/main に cybersecurity_news_2026-11-14.md あり, commit 30e7bd9)
+  - note_date: `2026-11-14` (provenance: 実測)
+  - spotify_date: `2026-11-14` (provenance: 実測 - 2026-11-15 に公開済み)
+  - spotify_season: 1 (provenance: 固定)
+  - spotify_last_episode: 557 (provenance: 導出 - 2026-11-13 分がシーズン1 エピソード556 + 前回+1 規則)
+
+## 4. 特記事項・注意書き
+- `security-study/current_day.txt` は教材生成側の先行カウンタであり、配信 Day ではない（2026-11-15 時点で値は 13 だが配信完了は Day12）。SSOT 内にこの区別を明記する。
+- 書き戻し運用: 各段階の担当は完了時に自分のキーだけを更新し、あわせて `updated_at`（JST）を更新する。ポーリングはしない。
