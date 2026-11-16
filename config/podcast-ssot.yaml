@@ -1,8 +1,8 @@
 # Podcast Metadata Single Source of Truth (SSOT)
-# Last updated: 2026-11-16T08:18:46+09:00
+# Last updated: 2026-11-16T09:37:35+09:00
 
 version: "1.0"
-updated_at: "2026-11-16T08:18:46+09:00"
+updated_at: "2026-11-16T09:37:35+09:00"
 
 study_podcast:
   program_name: "30日間で学ぶ資格勉強"
@@ -13,11 +13,11 @@ study_podcast:
   progress:
     material_day: 13
     note_day: 12
-    spotify_day: 12
+    spotify_day: 13
   provenance:
     material_day: "実測 (origin/main に Day13_study.md あり, commit 4b7d622)"
     note_day: "実測"
-    spotify_day: "実測 (Day12 は 2026-11-15 に公開済み)"
+    spotify_day: "実測 (Day13 は 2026-11-16 に公開済み)"
     spotify_season: "手順正本 my-life domains/habits/daily-podcast-runbook.md §4 の規則"
   notes:
     - "security-study/current_day.txt は教材生成側の先行カウンタであり配信 Day ではないこと（2026-11-15 時点で値は 13 だが配信完了は Day12）。"
@@ -41,13 +41,13 @@ news_podcast:
   progress:
     report_date: "2026-11-15"
     note_date: "2026-11-14"
-    spotify_date: "2026-11-14"
-    spotify_last_episode: 557
+    spotify_date: "2026-11-15"
+    spotify_last_episode: 558
   provenance:
     report_date: "実測 (origin/main に cybersecurity_news_2026-11-15.md あり, 日次ルーチン 2026-11-16 実行で作成)"
     note_date: "実測"
-    spotify_date: "実測 (2026-11-15 に公開済み)"
-    spotify_last_episode: "導出 (2026-11-13 分がシーズン1 エピソード556 + 前回+1 規則)"
+    spotify_date: "実測 (2026-11-16 に公開済み)"
+    spotify_last_episode: "実測 (2026-11-15 分がシーズン1 エピソード558 として 2026-11-16 に公開済み)"
   rules:
     spotify_episode_derivation: "前回 + 1（通算）"
     spotify_title_format: "<対象日>サイバーセキュリティニュース" # 対象日は「2026年11月13日」形式
