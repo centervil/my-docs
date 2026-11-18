@@ -1,8 +1,8 @@
 # Podcast Metadata Single Source of Truth (SSOT)
-# Last updated: 2026-11-18T11:30:00+09:00
+# Last updated: 2026-11-18T11:32:24+09:00
 
 version: "1.0"
-updated_at: "2026-11-18T11:30:00+09:00"
+updated_at: "2026-11-18T11:32:24+09:00"
 
 study_podcast:
   program_name: "30日間で学ぶ資格勉強"
@@ -12,7 +12,7 @@ study_podcast:
   spotify_season: 19
   progress:
     material_day: 13
-    note_day: 14
+    note_day: 15
     spotify_day: 15
   provenance:
     material_day: "実測 (origin/main に Day13_study.md あり, commit 4b7d622)"
@@ -40,7 +40,7 @@ news_podcast:
   spotify_season: 1
   progress:
     report_date: "2026-11-17"
-    note_date: "2026-11-16"
+    note_date: "2026-11-17"
     spotify_date: "2026-11-17"
     spotify_last_episode: 560
   provenance:
