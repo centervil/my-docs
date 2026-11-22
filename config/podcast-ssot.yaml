@@ -1,8 +1,8 @@
 # Podcast Metadata Single Source of Truth (SSOT)
-# Last updated: 2026-11-22T11:41:34+09:00
+# Last updated: 2026-11-22T23:59:47+09:00
 
 version: "1.0"
-updated_at: "2026-11-22T11:41:34+09:00"
+updated_at: "2026-11-22T23:59:47+09:00"
 
 study_podcast:
   program_name: "30日間で学ぶ資格勉強"
