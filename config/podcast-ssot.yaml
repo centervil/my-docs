@@ -1,8 +1,8 @@
 # Podcast Metadata Single Source of Truth (SSOT)
-# Last updated: 2026-11-27T08:17:00+09:00
+# Last updated: 2026-11-28T04:05:00+09:00
 
 version: "1.0"
-updated_at: "2026-11-27T08:17:00+09:00"
+updated_at: "2026-11-28T04:05:00+09:00"
 
 study_podcast:
   program_name: "30日間で学ぶ資格勉強"
@@ -42,7 +42,7 @@ news_podcast:
   program_description: "本ポッドキャストは、自分用のサイバーセキュリティ関連ニュースの情報収集を目的として、AIが毎日自動生成する解説を配信しています。世界中で起きたサイバー攻撃や脆弱性情報、セキュリティ動向をAIがまとめていますが、内容には事実と異なる部分や誤りが含まれる可能性があります。そのため、参考情報としてご利用ください。"
   spotify_season: 1
   progress:
-    report_date: "2026-11-26"
+    report_date: "2026-11-27"
     note_date: "2026-11-26"
     spotify_date: "2026-11-26"
     spotify_last_episode: 569
